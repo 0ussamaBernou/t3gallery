@@ -1,10 +1,21 @@
-// import Link from "next/link";
+import { db } from "~/server/db";
 
-export default function HomePage() {
+// import Link from "next/link";
+const images = "https://picsum.photos/200/300 ".repeat(4).split(" ", 4)
+console.log(images)
+
+export default async function HomePage() {
+  const posts = await db.query.posts.findMany() 
+  console.log(posts)
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
-      <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 ">
-T3 gallery cooking
+    <main className="">
+      <div className=" flex flex-wrap gap-4">
+        {[...images, ...images, ...images].map((image, id) => (
+          <div key={id} className="w-48">
+            <img src={image} alt="image" />
+          </div>
+        )
+        )}
       </div>
     </main>
   );
